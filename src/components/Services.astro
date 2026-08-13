@@ -1,8 +1,8 @@
 ---
-import { services, addons, waLink, WA_CELES } from "../data/site";
+import { services, projectServices, addons, waLink, WA_CELES } from "../data/site";
 ---
 
-<section id="servicios" class="band band-plum">
+<section id="servicios" class="band band-plum band-plum-soft">
   <div class="wrap">
     <div class="section-head reveal">
       <div class="section-head-title">
@@ -23,7 +23,7 @@ import { services, addons, waLink, WA_CELES } from "../data/site";
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
-                  stroke="#1cc8ff"
+                  stroke="var(--color-celeste)"
                   stroke-width="2"
                   stroke-linecap="round"
                 >
@@ -35,7 +35,7 @@ import { services, addons, waLink, WA_CELES } from "../data/site";
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
-                  stroke="#6d38ff"
+                  stroke="var(--color-violeta)"
                   stroke-width="2"
                   stroke-linecap="round"
                 >
@@ -47,7 +47,7 @@ import { services, addons, waLink, WA_CELES } from "../data/site";
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
-                  stroke="#c70bf6"
+                  stroke="var(--color-rosa)"
                   stroke-width="2"
                   stroke-linecap="round"
                 >
@@ -92,6 +92,61 @@ import { services, addons, waLink, WA_CELES } from "../data/site";
         target="_blank"
         rel="noopener"
         class="link-cta">Consultanos por cualquier otro servicio →</a
+      >
+    </div>
+
+    <div class="dev-panel reveal">
+      <div class="addons-head">
+        <h3>¿Necesitás desarrollo a medida?</h3>
+        <p>
+          Páginas web, apps para pymes, automatizaciones con IA y
+          migraciones. Cada proyecto es distinto: nos contactamos y armamos
+          un presupuesto a medida.
+        </p>
+      </div>
+      <div class="dev-services-grid">
+        {
+          projectServices.map((s) => (
+            <div class="dev-service">
+              <div class="dev-service-icon">
+                {s.icon === "web" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-celeste)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M3 12h18" />
+                    <path d="M12 3c2.5 2.5 4 5.7 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.7-4-9s1.5-6.5 4-9Z" />
+                  </svg>
+                )}
+                {s.icon === "app" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-violeta)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="6" y="2" width="12" height="20" rx="2" />
+                    <path d="M10 18h4" />
+                  </svg>
+                )}
+                {s.icon === "ai" && (
+                  <svg viewBox="0 0 24 24" fill="var(--color-rosa)" stroke="none">
+                    <path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2Z" />
+                  </svg>
+                )}
+                {s.icon === "migrate" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-azul)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 7h11l-3-3" />
+                    <path d="M17 17H6l3 3" />
+                  </svg>
+                )}
+              </div>
+              <div>
+                <h4>{s.name}</h4>
+                <p>{s.desc}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <a
+        href={waLink(WA_CELES, "¡Hola! Quiero cotizar un proyecto de desarrollo (web, app, automatización o migración) con Mila Digital 🚀")}
+        target="_blank"
+        rel="noopener"
+        class="btn btn-primary">Quiero cotizar mi proyecto</a
       >
     </div>
   </div>

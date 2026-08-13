@@ -7,10 +7,10 @@ export const DESCRIPTION =
 
 export const WA_CELES = "5491170365216";
 export const WA_CAMI = "5491154091703";
-const WA_MSG = encodeURIComponent(
-  "¡Hola! Vi la web de Mila Digital y quiero mi diagnóstico gratis ✨",
-);
-export const waLink = (num: string) => `https://wa.me/${num}?text=${WA_MSG}`;
+const DEFAULT_WA_MSG =
+  "¡Hola! Vi la web de Mila Digital y quiero mi diagnóstico gratis ✨";
+export const waLink = (num: string, msg: string = DEFAULT_WA_MSG) =>
+  `https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
 export const IG_URL = "https://www.instagram.com/miladigital.ar/";
 
 export const nav = [
@@ -38,6 +38,29 @@ export const services = [
     desc: "Páginas simples y efectivas, pensadas para convertir visitas en clientes. Del brief a publicada, sin vueltas.",
     tags: ["Diseño UI", "Copy", "Conversión"],
     icon: "layout",
+  },
+];
+
+export const projectServices = [
+  {
+    name: "Páginas web",
+    desc: "Sitios institucionales y multipágina a medida, más allá de una landing.",
+    icon: "web",
+  },
+  {
+    name: "Apps para pymes",
+    desc: "Aplicaciones a medida para digitalizar procesos de tu negocio.",
+    icon: "app",
+  },
+  {
+    name: "Automatizaciones con IA",
+    desc: "Flujos y bots que te ahorran tiempo y trabajo repetitivo.",
+    icon: "ai",
+  },
+  {
+    name: "Migraciones",
+    desc: "Migramos tu sitio, tienda o sistema sin perder nada en el camino.",
+    icon: "migrate",
   },
 ];
 

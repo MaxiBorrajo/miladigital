@@ -29,10 +29,12 @@
   --font-serif: "Fraunces", serif;
   --font-body: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-  --color-celeste: #1cc8ff;
-  --color-azul: #2e73ff;
-  --color-violeta: #6d38ff;
-  --color-rosa: #c70bf6;
+  /* pastel palette — celeste and violeta usages are intentionally swapped
+     (celeste now carries the lavender tone, violeta the sky-blue tone) */
+  --color-celeste: #c9b6ff;
+  --color-azul: #adc2ff;
+  --color-violeta: #9fd8ff;
+  --color-rosa: #f5b8e8;
 
   --color-void: #060608;
   --color-surface: #0d0d14;
@@ -40,9 +42,11 @@
   --color-ink: #f4f4f8;
   --color-muted: #9797ab;
 
-  --color-band-plum: #0e0a16;
-  --color-band-plum-soft: #140f1f;
-  --color-band-cta: #08060c;
+  /* section band backgrounds — only these two are used as a background color,
+     alternating down the page; distinct from the neutral --color-surface
+     tokens the cards sit on top of them */
+  --color-band-light-soft: #182236;
+  --color-band-cta: #170f26;
 }
 
 :root {
@@ -54,7 +58,7 @@ html {
 }
 
 body {
-  background: var(--color-void);
+  background: var(--color-band-cta);
   color: var(--color-ink);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -217,8 +221,8 @@ body.hero-type-potente {
   font-family: "JetBrains Mono", monospace;
   font-size: 12.5px;
   color: var(--color-celeste);
-  border: 1px solid rgba(28, 200, 255, 0.3);
-  background: rgba(28, 200, 255, 0.06);
+  border: 1px solid rgba(201, 182, 255, 0.3);
+  background: rgba(201, 182, 255, 0.06);
   padding: 7px 16px;
   border-radius: 100px;
   margin-bottom: 24px;
@@ -331,20 +335,14 @@ section {
 }
 
 /* sections are told apart by flat background color, not dividing lines */
-.band-dark {
-  background: var(--color-void);
-}
+.band-dark,
 .band-plum {
-  background: var(--color-band-plum);
+  background: var(--color-band-cta);
 }
-.band-plum-soft {
-  background: var(--color-band-plum-soft);
-}
-.band-light {
-  background: var(--color-surface);
-}
+.band-plum-soft,
+.band-light,
 .band-light-soft {
-  background: var(--color-surface-2);
+  background: var(--color-band-light-soft);
 }
 .band-cta {
   background: var(--color-band-cta);
@@ -507,6 +505,51 @@ section {
 }
 .link-cta:hover {
   text-decoration: underline;
+}
+
+/* custom development panel */
+.dev-panel {
+  margin-top: 24px;
+  background: var(--color-surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 34px;
+}
+.dev-services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 28px;
+}
+.dev-service {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.dev-service-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface-2);
+  border: 1px solid var(--border);
+}
+.dev-service-icon svg {
+  width: 19px;
+  height: 19px;
+}
+.dev-service h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.dev-service p {
+  color: var(--color-muted);
+  font-size: 13.5px;
+  line-height: 1.55;
 }
 
 /* ---------- STEPS ---------- */
@@ -800,6 +843,7 @@ footer {
   position: relative;
   z-index: 2;
   overflow: hidden;
+   background: rgba(6, 6, 8, 0.65);
 }
 .footer-wordmark {
   font-family: var(--font-display);
@@ -819,6 +863,7 @@ footer {
   align-items: center;
   flex-wrap: wrap;
   gap: 18px;
+  
 }
 footer .logo-mark span {
   font-size: 14px;
@@ -960,6 +1005,9 @@ footer p {
     grid-template-columns: 1fr;
     max-width: 340px;
     margin: 0 auto;
+  }
+  .dev-services-grid {
+    grid-template-columns: 1fr;
   }
   .steps-grid {
     grid-template-columns: 1fr;
