@@ -1,0 +1,48 @@
+---
+import { plans, waLink, WA_CELES } from "../data/site";
+import CheckIcon from "./icons/CheckIcon.astro";
+---
+
+<section id="planes" class="band band-light band-light-soft">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-head-title">
+        <span class="tag">Planes</span>
+        <h2>Elegí el plan que acompaña tu etapa.</h2>
+      </div>
+      <p>
+        Todos incluyen estrategia mensual y reportes claros. Escalá cuando
+        estés listo.
+      </p>
+    </div>
+    <div class="pricing-grid">
+      {
+        plans.map((p) => (
+          <div class:list={["price-card reveal", { featured: p.featured }]}>
+            {p.featured && <span class="popular-pill">Más elegido</span>}
+            <div class="plan-name">{p.name}</div>
+            <div class="plan-desc">{p.desc}</div>
+            <div class="price">${p.price}</div>
+            <div class="period">/ MES</div>
+            <ul class="plan-features">
+              {p.features.map((f) => (
+                <li>
+                  <CheckIcon />
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a
+              href={waLink(WA_CELES)}
+              target="_blank"
+              rel="noopener"
+              class:list={["btn", p.featured ? "btn-primary" : "btn-ghost"]}
+            >
+              Elegir plan
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

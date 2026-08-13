@@ -1,0 +1,48 @@
+---
+import { nav, waLink, WA_CELES } from "../data/site";
+---
+
+<header>
+  <nav class="wrap navbar">
+    <a href="#inicio" class="logo-mark" aria-label="Mila Digital - Inicio">
+      <img src="/logo-mark.png" width="34" height="34" alt="" />
+      <span>MILA DIGITAL</span>
+    </a>
+    <ul class="nav-links ml-auto mr-8" id="navLinks">
+      {
+        nav.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+    <a
+      href={waLink(WA_CELES)}
+      target="_blank"
+      rel="noopener"
+      class="btn btn-primary btn-sm nav-cta">Escribinos</a
+    >
+    <button
+      class="burger"
+      id="burgerBtn"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="navLinks"
+    >
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<script>
+  const burger = document.getElementById("burgerBtn");
+  const navLinks = document.getElementById("navLinks");
+  burger?.addEventListener("click", () => {
+    const isOpen = navLinks?.classList.toggle("open");
+    burger.setAttribute("aria-expanded", String(!!isOpen));
+  });
+  navLinks?.querySelectorAll("a").forEach((a) => {
+    a.addEventListener("click", () => navLinks.classList.remove("open"));
+  });
+</script>

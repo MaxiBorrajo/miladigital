@@ -1,0 +1,48 @@
+---
+import { waLink, WA_CELES } from "../data/site";
+import WhatsAppIcon from "./icons/WhatsAppIcon.astro";
+import CheckIcon from "./icons/CheckIcon.astro";
+---
+
+<section class="hero" id="inicio">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <h1>
+        <span class="script">Hacemos que tu marca</span>
+        <span class="bold-grad">se note</span>
+      </h1>
+      <p class="lead">
+        Community management, contenido y landing pages para marcas que
+        quieren crecer en serio. Estrategia primero, contenido después.
+      </p>
+      <div class="hero-actions">
+        <a
+          href={waLink(WA_CELES)}
+          target="_blank"
+          rel="noopener"
+          class="btn btn-primary"
+        >
+          <WhatsAppIcon size={18} />
+          Quiero mi diagnóstico gratis
+        </a>
+        <a href="#planes" class="btn btn-ghost">Ver planes y precios</a>
+      </div>
+      <ul class="trust-row">
+        <li><CheckIcon />Trato directo con las socias</li>
+        <li><CheckIcon />Estrategia antes que contenido</li>
+        <li><CheckIcon />Informe real cada mes</li>
+      </ul>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <div class="logo-card">
+        <img
+          src="/logo-mark.png"
+          alt="Isotipo Mila Digital"
+          width="220"
+          height="220"
+        />
+      </div>
+    </div>
+  </div>
+</section>

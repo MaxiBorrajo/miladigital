@@ -1,0 +1,70 @@
+---
+import { waLink, WA_CELES, WA_CAMI, IG_URL } from "../data/site";
+import WhatsAppIcon from "./icons/WhatsAppIcon.astro";
+---
+
+<section id="contacto" class="band band-dark band-cta">
+  <div class="wrap">
+    <div class="contact-shell reveal">
+      <div class="contact-left">
+        <h2>Hablemos de tu próximo lanzamiento.</h2>
+        <p>
+          Contanos qué necesita tu marca. Te respondemos directo, sin
+          formularios eternos ni esperas.
+        </p>
+        <div class="contact-info">
+          <a href={waLink(WA_CELES)} target="_blank" rel="noopener">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              ><path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.79.63 2.65a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.43-1.2a2 2 0 0 1 2.11-.45c.86.3 1.75.5 2.65.63A2 2 0 0 1 22 16.92z"
+              ></path></svg
+            >
+            Celes · +54 9 11 7036-5216
+          </a>
+          <a href={waLink(WA_CAMI)} target="_blank" rel="noopener">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              ><path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.79.63 2.65a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.43-1.2a2 2 0 0 1 2.11-.45c.86.3 1.75.5 2.65.63A2 2 0 0 1 22 16.92z"
+              ></path></svg
+            >
+            Cami · +54 9 11 5409-1703
+          </a>
+          <a href={IG_URL} target="_blank" rel="noopener">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              ><rect x="2" y="2" width="20" height="20" rx="5"
+              ></rect><circle cx="12" cy="12" r="4"></circle><circle
+                cx="17.5"
+                cy="6.5"
+                r="1"></circle></svg
+            >
+            @Miladigital.ar
+          </a>
+        </div>
+      </div>
+      <div class="contact-right">
+        <a
+          href={waLink(WA_CELES)}
+          target="_blank"
+          rel="noopener"
+          class="btn btn-primary btn-lg"
+        >
+          <WhatsAppIcon size={20} />
+          Escribinos por WhatsApp
+        </a>
+        <p class="contact-note">Te respondemos en menos de 24hs hábiles.</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+---
+import { pillars } from "../data/site";
+---
+
+<section id="vinculos" class="band band-dark">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-head-title">
+        <span class="tag">Por qué elegirnos</span>
+        <h2>Creando vínculos, no solo publicaciones.</h2>
+      </div>
+    </div>
+    <div class="pillars-grid">
+      {
+        pillars.map((p) => (
+          <div class="pillar-card reveal">
+            <h4>{p.title}</h4>
+            <p>{p.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

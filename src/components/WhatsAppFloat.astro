@@ -1,0 +1,14 @@
+---
+import { waLink, WA_CELES } from "../data/site";
+import WhatsAppIcon from "./icons/WhatsAppIcon.astro";
+---
+
+<a
+  href={waLink(WA_CELES)}
+  target="_blank"
+  rel="noopener"
+  class="wa-float"
+  aria-label="Escribinos por WhatsApp"
+>
+  <WhatsAppIcon size={26} />
+</a>

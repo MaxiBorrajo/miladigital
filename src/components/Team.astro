@@ -1,0 +1,46 @@
+---
+import { team, waLink } from "../data/site";
+---
+
+<section id="equipo" class="band band-light">
+  <div class="wrap">
+    <div class="team-shell reveal">
+      <div class="team-intro">
+        <span class="tag">Quiénes somos</span>
+        <h2>Dos socias, una misma visión.</h2>
+        <p>
+          Nos conocimos en el secundario en 2011 y años después formalizamos
+          esa conexión estudiando juntas la Tecnicatura en Producción
+          Digital. Esa confianza es hoy el pilar de la agencia.
+        </p>
+      </div>
+      <div class="team-grid">
+        {
+          team.map((t) => (
+            <div class="team-card">
+              <div class="team-photo">
+                <img
+                  src={t.photo}
+                  alt={`Foto de ${t.name}`}
+                  width="240"
+                  height="240"
+                  loading="lazy"
+                />
+              </div>
+              <h4>{t.name}</h4>
+              <span class="team-role">{t.role}</span>
+              <a
+                href={waLink(t.wa)}
+                target="_blank"
+                rel="noopener"
+                class="team-wa"
+              >
+                Escribirle por WhatsApp
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
