@@ -2,17 +2,33 @@
 import { nav, waLink, WA_CELES } from "../data/site";
 ---
 
-<header>
-  <nav class="wrap navbar">
-    <a href="#inicio" class="logo-mark" aria-label="Mila Digital - Inicio">
-      <img src="/logo-mark.png" width="34" height="34" alt="" />
-      <span>MILA DIGITAL</span>
+<header
+  class="fixed top-0 left-0 right-0 z-50 backdrop-blur-[14px] bg-void/65 border-b border-border"
+>
+  <nav
+    class="wrap max-w-[1440px] mx-auto px-7 md:px-[88px] relative z-2 flex items-center justify-between py-3.5"
+  >
+    <a
+      href="#inicio"
+      class="flex items-center gap-2.5 no-underline text-ink"
+      aria-label="Mila Digital - Inicio"
+    >
+      <img src="/logo-mark.png" width="34" height="34" alt="" class="block w-[34px] h-[34px]" />
+      <span class="font-display font-normal text-base tracking-[0.01em]">MILA DIGITAL</span>
     </a>
-    <ul class="nav-links ml-auto mr-8" id="navLinks">
+    <ul
+      id="navLinks"
+      class="nav-links ml-auto mr-8 flex gap-8 list-none max-md:hidden max-md:absolute max-md:top-16 max-md:right-5 max-md:flex-col max-md:gap-4 max-md:bg-surface max-md:border max-md:border-border max-md:rounded-2xl max-md:px-7 max-md:py-5"
+    >
       {
         nav.map((item) => (
           <li>
-            <a href={item.href}>{item.label}</a>
+            <a
+              href={item.href}
+              class="text-muted no-underline text-[14.5px] font-medium transition-colors duration-250 hover:text-ink"
+            >
+              {item.label}
+            </a>
           </li>
         ))
       }
@@ -21,16 +37,19 @@ import { nav, waLink, WA_CELES } from "../data/site";
       href={waLink(WA_CELES)}
       target="_blank"
       rel="noopener"
-      class="btn btn-primary btn-sm nav-cta">Escribinos</a
+      class="nav-cta max-md:hidden inline-flex items-center justify-center gap-2 rounded-[10px] font-semibold text-[14.5px] no-underline cursor-pointer border-none font-body transition-[transform,box-shadow] duration-250 bg-celeste text-[#050507] hover:-translate-y-0.5 px-5 py-2.5"
+      >Escribinos</a
     >
     <button
-      class="burger"
+      class="hidden max-md:flex flex-col gap-1.5 cursor-pointer bg-none border-none"
       id="burgerBtn"
       aria-label="Abrir menú"
       aria-expanded="false"
       aria-controls="navLinks"
     >
-      <span></span><span></span><span></span>
+      <span class="w-[22px] h-0.5 bg-ink rounded-sm"></span>
+      <span class="w-[22px] h-0.5 bg-ink rounded-sm"></span>
+      <span class="w-[22px] h-0.5 bg-ink rounded-sm"></span>
     </button>
   </nav>
 </header>

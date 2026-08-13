@@ -2,16 +2,27 @@
 import { IG_URL } from "../data/site";
 ---
 
-<footer>
-  <div class="wrap footer-row">
-    <a href="#inicio" class="logo-mark">
-      <img src="/logo-mark.png" width="26" height="26" alt="" />
-      <span>MILA DIGITAL</span>
+<footer class="pt-11 border-t border-border relative z-2 overflow-hidden bg-void/65">
+  <div
+    class="wrap max-w-[1440px] mx-auto px-7 md:px-[88px] relative z-2 flex justify-between items-center flex-wrap gap-[18px]"
+  >
+    <a href="#inicio" class="flex items-center gap-2.5 no-underline text-ink">
+      <img src="/logo-mark.png" width="26" height="26" alt="" class="block w-[26px] h-[26px]" />
+      <span class="font-display font-normal text-sm tracking-[0.01em]">MILA DIGITAL</span>
     </a>
-    <p>&copy; 2026 Mila Digital. Gestión y creación de contenido.</p>
-    <a href={IG_URL} target="_blank" rel="noopener" class="footer-ig"
+    <p class="text-muted text-[13px]">&copy; 2026 Mila Digital. Gestión y creación de contenido.</p>
+    <a
+      href={IG_URL}
+      target="_blank"
+      rel="noopener"
+      class="text-muted no-underline text-[13px] hover:text-celeste"
       >@Miladigital.ar</a
     >
   </div>
-  <p class="footer-wordmark" aria-hidden="true">MILA DIGITAL</p>
+  <p
+    class="text-[clamp(64px,14vw,220px)] leading-[0.85] tracking-[0.01em] text-center text-ink opacity-5 my-10 -mb-[0.12em] select-none"
+    aria-hidden="true"
+  >
+    MILA DIGITAL
+  </p>
 </footer>

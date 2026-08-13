@@ -2,38 +2,48 @@
 import { team, waLink } from "../data/site";
 ---
 
-<section id="equipo" class="band band-plum">
-  <div class="wrap">
-    <div class="team-shell reveal">
+<section id="equipo" class="relative py-[100px] z-2 bg-band-cta">
+  <div class="wrap max-w-[1440px] mx-auto px-7 md:px-[88px] relative z-2">
+    <div
+      class="reveal grid grid-cols-2 gap-[60px] items-center max-[980px]:grid-cols-1 max-[980px]:gap-9"
+    >
       <div class="team-intro">
-        <span class="tag">Quiénes somos</span>
-        <h2>Dos socias, una misma visión.</h2>
-        <p>
+        <span
+          class="font-body text-[12.5px] font-semibold text-muted tracking-[0.02em] inline-block px-3.5 py-1.5 rounded-full border border-border bg-surface"
+          >Quiénes somos</span
+        >
+        <h2 class="font-serif font-medium text-[clamp(28px,3.6vw,42px)] leading-tight mt-4">
+          Dos socias, una misma visión.
+        </h2>
+        <p class="mt-3.5 text-muted text-base leading-[1.65]">
           Nos conocimos en el secundario en 2011 y años después formalizamos
           esa conexión estudiando juntas la Tecnicatura en Producción
           Digital. Esa confianza es hoy el pilar de la agencia.
         </p>
       </div>
-      <div class="team-grid">
+      <div
+        class="grid grid-cols-2 gap-5 max-sm:grid-cols-1 max-sm:max-w-[340px] max-sm:mx-auto"
+      >
         {
           team.map((t) => (
-            <div class="team-card">
-              <div class="team-photo">
+            <div class="bg-surface border border-border rounded-2xl p-7 text-center transition-[transform,border-color] duration-300 hover:-translate-y-1.5 hover:border-white/18">
+              <div class="w-[120px] h-[120px] rounded-full mx-auto mb-[18px] overflow-hidden">
                 <img
                   src={t.photo}
                   alt={`Foto de ${t.name}`}
                   width="240"
                   height="240"
                   loading="lazy"
+                  class="w-full h-full object-cover rounded-full border-2 border-celeste block"
                 />
               </div>
-              <h4>{t.name}</h4>
-              <span class="team-role">{t.role}</span>
+              <h4 class="font-serif font-medium text-[19px] mb-1">{t.name}</h4>
+              <span class="block text-muted text-[13.5px] mb-4">{t.role}</span>
               <a
                 href={waLink(t.wa)}
                 target="_blank"
                 rel="noopener"
-                class="team-wa"
+                class="text-celeste no-underline text-[13.5px] font-semibold hover:underline"
               >
                 Escribirle por WhatsApp
               </a>

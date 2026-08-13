@@ -2,23 +2,30 @@
 import { services, projectServices, addons, waLink, WA_CELES } from "../data/site";
 ---
 
-<section id="servicios" class="band band-plum band-plum-soft">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="section-head-title">
-        <span class="tag">Qué hacemos</span>
-        <h2>Todo lo que tu marca necesita para existir online, bien.</h2>
+<section id="servicios" class="relative py-[100px] z-2 bg-band-light-soft">
+  <div class="wrap max-w-[1440px] mx-auto px-7 md:px-[88px] relative z-2">
+    <div
+      class="reveal flex flex-col items-center text-center gap-4 max-w-[640px] mx-auto mb-14"
+    >
+      <div class="flex flex-col items-center gap-4">
+        <span
+          class="font-body text-[12.5px] font-semibold text-muted tracking-[0.02em] inline-block px-3.5 py-1.5 rounded-full border border-border bg-surface"
+          >Qué hacemos</span
+        >
+        <h2 class="font-serif font-medium text-[clamp(28px,3.6vw,42px)] leading-tight">
+          Todo lo que tu marca necesita para existir online, bien.
+        </h2>
       </div>
-      <p>
+      <p class="mt-0 text-muted text-base leading-relaxed">
         Tres frentes, un mismo objetivo: que te vean, que te recuerden y que
         te elijan.
       </p>
     </div>
-    <div class="services-grid">
+    <div class="grid grid-cols-3 gap-[22px] max-md:grid-cols-1">
       {
         services.map((s) => (
-          <div class="service-card reveal">
-            <div class="service-icon">
+          <div class="reveal bg-surface border border-border rounded-2xl px-7 py-[34px] transition-[transform,border-color,background] duration-350 hover:-translate-y-1.5 hover:border-white/18 hover:bg-surface-2">
+            <div class="w-[50px] h-[50px] rounded-xl flex items-center justify-center mb-[22px] bg-surface-2 border border-border">
               {s.icon === "chat" && (
                 <svg
                   viewBox="0 0 24 24"
@@ -26,6 +33,7 @@ import { services, projectServices, addons, waLink, WA_CELES } from "../data/sit
                   stroke="var(--color-celeste)"
                   stroke-width="2"
                   stroke-linecap="round"
+                  class="w-[23px] h-[23px]"
                 >
                   <path d="M18 8a3 3 0 1 0-2.83-4H15a3 3 0 0 0 0 6 2.98 2.98 0 0 0 1.98-.75l6.02 3.5m-8-2.75-6.02 3.5M18 20a3 3 0 1 0-2.83-4H15a3 3 0 0 0 0 6 2.98 2.98 0 0 0 1.98-.75" />
                   <circle cx="6" cy="12" r="3" />
@@ -38,6 +46,7 @@ import { services, projectServices, addons, waLink, WA_CELES } from "../data/sit
                   stroke="var(--color-violeta)"
                   stroke-width="2"
                   stroke-linecap="round"
+                  class="w-[23px] h-[23px]"
                 >
                   <rect x="3" y="3" width="18" height="18" rx="3" />
                   <path d="M9 8h6M9 12h6M9 16h4" />
@@ -50,17 +59,20 @@ import { services, projectServices, addons, waLink, WA_CELES } from "../data/sit
                   stroke="var(--color-rosa)"
                   stroke-width="2"
                   stroke-linecap="round"
+                  class="w-[23px] h-[23px]"
                 >
                   <path d="M4 4h16v4H4z" />
                   <path d="M4 12h16M4 16h10M4 20h6" />
                 </svg>
               )}
             </div>
-            <h3>{s.name}</h3>
-            <p>{s.desc}</p>
-            <div class="service-tags">
+            <h3 class="font-serif font-medium text-xl mb-2.5">{s.name}</h3>
+            <p class="text-muted text-[14.5px] leading-[1.65] mb-[18px]">{s.desc}</p>
+            <div class="flex flex-wrap gap-2">
               {s.tags.map((t) => (
-                <span class="pill-tag">{t}</span>
+                <span class="font-mono text-[11.5px] px-3 py-1.5 rounded-full border border-border text-muted">
+                  {t}
+                </span>
               ))}
             </div>
           </div>
@@ -68,20 +80,22 @@ import { services, projectServices, addons, waLink, WA_CELES } from "../data/sit
       }
     </div>
 
-    <div class="addons reveal">
-      <div class="addons-head">
-        <h3>¿Necesitás algo puntual?</h3>
-        <p>
+    <div class="reveal mt-14 bg-surface border border-border rounded-2xl p-[34px]">
+      <div class="mb-0">
+        <h3 class="font-serif font-medium text-[21px] mb-1.5">¿Necesitás algo puntual?</h3>
+        <p class="text-muted text-sm mb-[22px]">
           Sumá servicios a medida cuando los necesites, sin atarte a un plan.
         </p>
       </div>
-      <div class="addons-chips">
+      <div class="flex flex-wrap gap-2.5 mb-5">
         {
           addons.map((a) => (
-            <span class="addon-chip">
+            <span class="flex items-center gap-2 bg-surface-2 border border-border rounded-full py-2 pr-2 pl-4 text-[13px]">
               <>
-                <b>{a.name}</b>
-                <i>{a.price}</i>
+                <b class="font-medium text-ink">{a.name}</b>
+                <i class="not-italic text-void bg-celeste px-[11px] py-1 rounded-full text-xs font-semibold">
+                  {a.price}
+                </i>
               </>
             </span>
           ))
@@ -91,52 +105,53 @@ import { services, projectServices, addons, waLink, WA_CELES } from "../data/sit
         href={waLink(WA_CELES)}
         target="_blank"
         rel="noopener"
-        class="link-cta">Consultanos por cualquier otro servicio →</a
+        class="text-celeste no-underline text-[14.5px] font-semibold hover:underline"
+        >Consultanos por cualquier otro servicio →</a
       >
     </div>
 
-    <div class="dev-panel reveal">
-      <div class="addons-head">
-        <h3>¿Necesitás desarrollo a medida?</h3>
-        <p>
+    <div class="reveal mt-6 bg-surface border border-border rounded-2xl p-[34px]">
+      <div class="mb-0">
+        <h3 class="font-serif font-medium text-[21px] mb-1.5">¿Necesitás desarrollo a medida?</h3>
+        <p class="text-muted text-sm mb-[22px]">
           Páginas web, apps para pymes, automatizaciones con IA y
           migraciones. Cada proyecto es distinto: nos contactamos y armamos
           un presupuesto a medida.
         </p>
       </div>
-      <div class="dev-services-grid">
+      <div class="grid grid-cols-2 gap-6 mb-7 max-sm:grid-cols-1">
         {
           projectServices.map((s) => (
-            <div class="dev-service">
-              <div class="dev-service-icon">
+            <div class="flex gap-3.5 items-start">
+              <div class="w-10 h-10 shrink-0 rounded-[10px] flex items-center justify-center bg-surface-2 border border-border">
                 {s.icon === "web" && (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-celeste)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-celeste)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-[19px] h-[19px]">
                     <circle cx="12" cy="12" r="9" />
                     <path d="M3 12h18" />
                     <path d="M12 3c2.5 2.5 4 5.7 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.7-4-9s1.5-6.5 4-9Z" />
                   </svg>
                 )}
                 {s.icon === "app" && (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-violeta)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-violeta)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-[19px] h-[19px]">
                     <rect x="6" y="2" width="12" height="20" rx="2" />
                     <path d="M10 18h4" />
                   </svg>
                 )}
                 {s.icon === "ai" && (
-                  <svg viewBox="0 0 24 24" fill="var(--color-rosa)" stroke="none">
+                  <svg viewBox="0 0 24 24" fill="var(--color-rosa)" stroke="none" class="w-[19px] h-[19px]">
                     <path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2Z" />
                   </svg>
                 )}
                 {s.icon === "migrate" && (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-azul)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-azul)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-[19px] h-[19px]">
                     <path d="M7 7h11l-3-3" />
                     <path d="M17 17H6l3 3" />
                   </svg>
                 )}
               </div>
               <div>
-                <h4>{s.name}</h4>
-                <p>{s.desc}</p>
+                <h4 class="text-[15px] font-semibold mb-1">{s.name}</h4>
+                <p class="text-muted text-[13.5px] leading-[1.55]">{s.desc}</p>
               </div>
             </div>
           ))
@@ -146,7 +161,8 @@ import { services, projectServices, addons, waLink, WA_CELES } from "../data/sit
         href={waLink(WA_CELES, "¡Hola! Quiero cotizar un proyecto de desarrollo (web, app, automatización o migración) con Mila Digital 🚀")}
         target="_blank"
         rel="noopener"
-        class="btn btn-primary">Quiero cotizar mi proyecto</a
+        class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-[10px] font-semibold text-[14.5px] no-underline cursor-pointer border-none font-body transition-[transform,box-shadow] duration-250 bg-celeste text-[#050507] hover:-translate-y-0.5"
+        >Quiero cotizar mi proyecto</a
       >
     </div>
   </div>
