@@ -64,16 +64,221 @@ import CheckIcon from "./icons/CheckIcon.astro";
       aria-hidden="true"
     >
       <div
-        class="animate-gentle-float w-full max-w-[360px] aspect-square mx-auto p-[15%] box-border rounded-[20px] border border-border bg-surface flex items-center justify-center max-[980px]:max-w-[260px]"
+        class="relative w-full max-w-[700px] mx-auto max-[980px]:max-w-[440px]"
       >
-        <img
-          src="/logo-mark.png"
-          alt="Isotipo Mila Digital"
-          width="220"
-          height="220"
-          class="w-full h-full object-contain"
-        />
+        <div id="logo3d" class="aspect-square"></div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  import * as THREE from "three";
+  import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader.js";
+
+  const mount = document.getElementById("logo3d");
+  if (mount) {
+    const scene = new THREE.Scene();
+
+    const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+    camera.position.set(0, 0, 8);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    mount.appendChild(renderer.domElement);
+    renderer.domElement.style.width = "100%";
+    renderer.domElement.style.height = "100%";
+    renderer.domElement.style.display = "block";
+
+    const ambient = new THREE.AmbientLight(0xffffff, 2.2);
+    scene.add(ambient);
+    const key = new THREE.DirectionalLight(0xffffff, 2.4);
+    key.position.set(3, 4, 5);
+    scene.add(key);
+    const rim = new THREE.DirectionalLight(0x8a7cff, 1.8);
+    rim.position.set(-4, -2, 3);
+    scene.add(rim);
+    const fill = new THREE.DirectionalLight(0x4fd8ff, 1.6);
+    fill.position.set(0, -3, -4);
+    scene.add(fill);
+    const fillFront = new THREE.DirectionalLight(0xffffff, 1.6);
+    fillFront.position.set(-2, 3, -3);
+    scene.add(fillFront);
+    const insideFill = new THREE.PointLight(0xffffff, 4, 8);
+    insideFill.position.set(0, 0, 2);
+    scene.add(insideFill);
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    const svgLoader = new SVGLoader();
+    const textureLoader = new THREE.TextureLoader();
+
+    Promise.all([
+      new Promise<import("three/examples/jsm/loaders/SVGLoader.js").SVGResult>(
+        (resolve) => svgLoader.load("/logo-mark.svg", resolve)
+      ),
+      new Promise<THREE.Texture>((resolve) =>
+        textureLoader.load("/logo-mark-solid.png", resolve)
+      ),
+    ]).then(([svgData, texture]) => {
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.wrapS = THREE.ClampToEdgeWrapping;
+      texture.wrapT = THREE.ClampToEdgeWrapping;
+
+      const faceMaterial = new THREE.MeshBasicMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: false,
+        toneMapped: false,
+      });
+      const sideMaterial = new THREE.MeshBasicMaterial({
+        color: 0x8a7cff,
+        side: THREE.DoubleSide,
+      });
+
+      const extrudeSettings = {
+        depth: 42,
+        bevelEnabled: true,
+        bevelThickness: 6,
+        bevelSize: 4,
+        bevelSegments: 5,
+        curveSegments: 24,
+      };
+
+      const meshGroup = new THREE.Group();
+
+      // Map UVs against the full SVG viewBox (0..1024), matching the PNG's
+      // own coordinate space, not the tighter bounding box of the traced shapes.
+      const viewBoxSize = 1024;
+      const uvScale = 1 / viewBoxSize;
+
+      svgData.paths.forEach((path) => {
+        path.toShapes().forEach((shape) => {
+          const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+          geometry.computeBoundingBox();
+
+          const uvAttr = new Float32Array(geometry.attributes.position.count * 2);
+          const posAttr = geometry.attributes.position;
+          for (let i = 0; i < posAttr.count; i++) {
+            const x = posAttr.getX(i);
+            const y = posAttr.getY(i);
+            uvAttr[i * 2] = x * uvScale;
+            uvAttr[i * 2 + 1] = 1 - y * uvScale;
+          }
+          geometry.setAttribute("uv", new THREE.BufferAttribute(uvAttr, 2));
+
+          const mesh = new THREE.Mesh(geometry, [
+            faceMaterial,
+            sideMaterial,
+          ]);
+          meshGroup.add(mesh);
+        });
+      });
+
+      const box = new THREE.Box3().setFromObject(meshGroup);
+      const size = new THREE.Vector3();
+      box.getSize(size);
+      const center = new THREE.Vector3();
+      box.getCenter(center);
+
+      const targetSize = 4.4;
+      const scale = targetSize / Math.max(size.x, size.y);
+
+      const centeredWrapper = new THREE.Group();
+      centeredWrapper.add(meshGroup);
+      meshGroup.position.sub(center);
+      centeredWrapper.scale.set(scale, -scale, scale);
+
+      group.add(centeredWrapper);
+
+      group.rotation.set(0, Math.PI, 0);
+      group.position.x = 8;
+
+      const startTime = performance.now();
+      const introDuration = 1300;
+      const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+
+      const finalRotX = -0.44;
+      const finalRotY = -0.44;
+
+      // Zero-gravity drift: the logo coasts in a straight line and bounces
+      // off the edges of the visible frustum, like an object floating in space.
+      const boundX = 0.35;
+      const boundY = 0.3;
+      let driftX = 0;
+      let driftY = 0;
+      let velX = 0.12;
+      let velY = 0.09;
+      let lastFrame = startTime;
+
+      // Mouse-follow "gaze": the logo tilts toward the cursor position on screen.
+      let mouseNormX = 0;
+      let mouseNormY = 0;
+      let gazeX = 0;
+      let gazeY = 0;
+      window.addEventListener("pointermove", (e) => {
+        mouseNormX = (e.clientX / window.innerWidth) * 2 - 1;
+        mouseNormY = (e.clientY / window.innerHeight) * 2 - 1;
+      });
+
+      function animate(now: number) {
+        const elapsed = now - startTime;
+        const t = Math.min(elapsed / introDuration, 1);
+        const eased = easeOutCubic(t);
+
+        group.position.x = 8 * (1 - eased);
+        group.rotation.y = THREE.MathUtils.lerp(Math.PI, finalRotY, eased);
+        group.rotation.x = THREE.MathUtils.lerp(0, finalRotX, eased);
+
+        if (t >= 1) {
+          const dt = Math.min((now - lastFrame) / 1000, 0.05);
+          lastFrame = now;
+
+          driftX += velX * dt;
+          driftY += velY * dt;
+
+          if (driftX > boundX) {
+            driftX = boundX;
+            velX *= -1;
+          } else if (driftX < -boundX) {
+            driftX = -boundX;
+            velX *= -1;
+          }
+          if (driftY > boundY) {
+            driftY = boundY;
+            velY *= -1;
+          } else if (driftY < -boundY) {
+            driftY = -boundY;
+            velY *= -1;
+          }
+
+          group.position.x = driftX;
+          group.position.y = driftY;
+
+          gazeX += (mouseNormX - gazeX) * 0.06;
+          gazeY += (mouseNormY - gazeY) * 0.06;
+
+          group.rotation.x = finalRotX + driftY * 0.08 + gazeY * 0.95;
+          group.rotation.y = finalRotY + driftX * 0.08 + gazeX * 1.15;
+        } else {
+          lastFrame = now;
+        }
+
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+      }
+      requestAnimationFrame(animate);
+    });
+
+    function resize() {
+      const size = mount!.clientWidth;
+      if (!size) return;
+      renderer.setSize(size, size, false);
+      camera.aspect = 1;
+      camera.updateProjectionMatrix();
+    }
+    resize();
+    window.addEventListener("resize", resize);
+  }
+</script>
